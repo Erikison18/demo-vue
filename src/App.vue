@@ -1,28 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    {{ totalPrice }}
-    <Apple></Apple>
-    <Banana></Banana>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Apple from './components/apple'
-import Banana from './components/banana'
+import Layout from './components/layout'
 export default {
   name: 'App',
   components: {
-    Apple,
-    Banana
-  },
-  data: function () {
-    return { }
-  },
-  computed: {
-    totalPrice () {
-      return this.$store.state.totalPrice
-    }
+    Layout
   }
 }
 </script>
