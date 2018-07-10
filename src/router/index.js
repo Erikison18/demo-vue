@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/layout.vue'
+import Index from '@/pages/index'
+import Index1 from '@/pages/index1'
 
 Vue.use(Router)
 
@@ -9,7 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Layout
+      component: Index
+    },
+    {
+      path: '/11',
+      component: Index1
     }
   ]
 })
