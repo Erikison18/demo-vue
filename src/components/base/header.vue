@@ -1,7 +1,7 @@
 <style lang="scss" scoped="">
   .header{
     width: 100%;
-    height: 80px;
+    height: 60px;
     background-color: #363636;
     img{
       width: 50px;
@@ -9,8 +9,8 @@
     }
     ul{
       display: inline-block;
-      line-height: 80px;
-      margin-right: 15px;
+      line-height: 60px;
+      margin-right: 5px;
       li{
         float: left;
         color: #b2b2b2;
