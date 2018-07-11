@@ -5,7 +5,8 @@
     background-color: #363636;
     img{
       width: 50px;
-      margin: 15px;
+      margin-left: 20px;
+      margin-top: 5px;
     }
     ul{
       display: inline-block;

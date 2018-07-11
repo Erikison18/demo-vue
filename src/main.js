@@ -4,11 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-// import VueResourse from 'vue-resourse'
+import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
-// Vue.use(VueResourse)
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 new Vue({

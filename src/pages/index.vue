@@ -1,4 +1,4 @@
-<style scoped lang="scss">
+<style lang="scss">
 @import '../styles/mixin.scss';
 .index-wrap{
   width: 1200px;
@@ -24,6 +24,13 @@
       }
       ul{
         padding: 10px 15px;
+        &.new-list{
+          min-height: 360px;
+          a{
+            display: inline-block;
+            width: 230px;
+          }
+        }
         li{
           padding: 5px;
           span{
@@ -43,6 +50,9 @@
   .index-right{
     width: 900px;
     float: left;
+    .slide{
+      margin: 15px 0;
+    }
     .board-item{
       float: left;
       width: 440px;
@@ -97,30 +107,30 @@
     <div class="index-left">
       <div class="left-box">
         <h2>全部产品</h2>
-        <template v-for="(item, key, index) in productList">
-          <h3>{{ item.title }}</h3>
-          <ul>
-            <li v-for="itemIn in item.list">
+        <template v-for="(item, key) in productList">
+          <h3 :key="key+'h3'">{{ item.title }}</h3>
+          <ul :key="key+'ul'">
+            <li v-for="itemIn in item.list" :key="itemIn.name">
               <a :href="itemIn.url">{{ itemIn.name }}</a>
               <span v-if="itemIn.hot">HOT</span>
             </li>
           </ul>
-          <div class="hr"></div>
+          <div class="hr" :key="key+'hr'"></div>
         </template>
       </div>
       <div class="left-box">
         <h2>最新消息</h2>
-        <ul>
-          <li v-for="item in NewsList">
-            <a :href="item.url">{{ item.title }}</a>
+        <ul class="new-list">
+          <li v-for="(item, index) in NewsList" :key="index">
+            <a :href="item.url" class="ellipsis">{{ item.title }}</a>
           </li>
         </ul>
       </div>
     </div>
     <div class="index-right">
-      <div class="slide">silde</div>
+      <Slide :slideTime="slideTime" :slides="slides"></Slide>
       <div class="index-board-list">
-        <div v-for="(item, index) in boardList" class="board-item" :class="{'odd': index % 2 !==0}">
+        <div v-for="(item, index) in boardList" class="board-item" :class="{'odd': index % 2 !==0}" :key="index">
           <div class="board-item-inner" :class="'board-item-'+item.id">
             <h2>{{ item.title }}</h2>
             <p>{{ item.description }}</p>
@@ -136,10 +146,37 @@
 </template>
 
 <script>
+import Slide from '../components/slide'
 export default {
   name: 'Vindex',
+  components: {
+    Slide
+  },
   data () {
     return {
+      slideTime: 3000,
+      slides: [
+        {
+          src: require('../assets/slide/pic1.jpg'),
+          title: 'xxx1',
+          href: 'detail/analysis'
+        },
+        {
+          src: require('../assets/slide/pic2.jpg'),
+          title: 'xxx2',
+          href: 'detail/count'
+        },
+        {
+          src: require('../assets/slide/pic3.jpg'),
+          title: 'xxx3',
+          href: 'http://xxx.xxx.com'
+        },
+        {
+          src: require('../assets/slide/pic4.jpg'),
+          title: 'xxx4',
+          href: 'detail/forecast'
+        }
+      ],
       boardList: [
         {
           title: '开放产品',
@@ -170,28 +207,7 @@ export default {
           saleout: false
         }
       ],
-      NewsList:  [
-        {
-          "id": 1,
-          "title": "新闻条目1新闻条目1新闻条目1新闻条目1",
-          "url": "http://starcraft.com"
-        },
-        {
-          "id": 2,
-          "title": "新闻条目2新闻条目2新闻条目2新闻条目2",
-          "url": "http://warcraft.com"
-        },
-        {
-          "id": 3,
-          "title": "新闻条3新闻条3新闻条3",
-          "url": "http://overwatch.com"
-        },
-        {
-          "id": 4,
-          "title": "新闻条4广告发布",
-          "url": "http://hearstone.com"
-        }
-      ],
+      NewsList: [],
       productList: {
         pc: {
           title: 'PC产品',
@@ -241,7 +257,19 @@ export default {
     }
   },
   computed: {
-
+  },
+  created: function () {
+    this.$http.get('/api/newsList').then((res) => {
+      console.log(res.data, 11111111)
+      this.NewsList = res.data.data
+    }, (error) => {
+      console.log(error, 22222222)
+    })
+    this.$http.post('/api/login').then((res) => {
+      console.log(res.data, 3333333)
+    }, (error) => {
+      console.log(error, 44444444)
+    })
   }
 }
 </script>
