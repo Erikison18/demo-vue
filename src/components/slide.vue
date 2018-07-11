@@ -4,6 +4,26 @@
   width: 900px;
   height: 500px;
   overflow: hidden;
+  .slideNewLeft-enter-active{
+    transition: all 0.5s linear;
+  }
+  .slideNewLeft-enter{
+    transform: translateX(900px);
+  }
+  .slideOldLeft-leave-active{
+    transition: all  0.5s linear;
+    transform: translateX(-900px);
+  }
+  .slideNewRight--enter-active{
+    transition: all 0.5s linear;
+  }
+  .slideNewRight-enter{
+    transform: translateX(-900px);
+  }
+  .slideOldRight-leave-active{
+    transition: all  0.5s linear;
+    transform: translateX(900px);
+  }
   .slide-img{
     width: 100%;
     img{
@@ -46,15 +66,20 @@
 </style>
 
 <template>
-  <div class="slide">
+  <div class="slide" @mouseenter="clearTimer" @mouseleave="setTimer">
     <div class="slide-img">
-      <img :src="slides[nowIndex].src">
+      <transition :name="directive === 'left'? 'slideNewLeft' : 'slideNewRight'">
+        <img :src="slides[nowIndex].src" v-if="isShow">
+      </transition>
+      <transition :name="directive === 'left'? 'slideOldLeft' : 'slideOldRight'">
+        <img :src="slides[nowIndex].src" v-if="!isShow">
+      </transition>
     </div>
     <h2>{{ slides[nowIndex].title }}</h2>
     <ul>
-      <li @click="goto(prevIndex)">&lt;</li>
+      <li @click="goto(prevIndex, 'right')">&lt;</li>
       <li v-for="(item, index) in slides" :key="index" @click="goto(index)" :class="{active: index === nowIndex}">{{ index + 1 }}</li>
-      <li @click="goto(nextIndex)">&gt;</li>
+      <li @click="goto(nextIndex, 'left')">&gt;</li>
     </ul>
   </div>
 </template>
@@ -76,7 +101,9 @@ export default {
   },
   data () {
     return {
-      nowIndex: 0
+      nowIndex: 0,
+      isShow: true,
+      directive: 'left'
     }
   },
   computed: {
@@ -99,13 +126,23 @@ export default {
     this.setTimer()
   },
   methods: {
-    goto (index) {
-      this.nowIndex = index
-      this.clearTimer()
-      this.setTimer()
+    goto (index, dir) {
+      if (this.nowIndex <= index) {
+        this.directive = 'left'
+      } else {
+        this.directive = 'right'
+      }
+      if (dir) {
+        this.directive = dir
+      }
+      this.isShow = false
+      setTimeout(() => {
+        this.isShow = true
+        this.nowIndex = index
+      }, 10)
     },
     setTimer () {
-      this.timer = setInterval(() => { this.nowIndex = this.nextIndex }, this.slideTime)
+      this.timer = setInterval(() => { this.goto(this.nextIndex) }, this.slideTime)
     },
     clearTimer () {
       clearInterval(this.timer)

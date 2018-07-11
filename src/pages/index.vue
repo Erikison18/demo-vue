@@ -90,7 +90,6 @@
           color: #fff;
           background-color: #4fc08d;
           padding: 10px 20px;
-          cursor: pointer;
           margin-top: 20px;
           &.saleout{
              background-color: #999;
