@@ -141,18 +141,15 @@
         </div>
       </div>
     </div>
-    <v-dialog></v-dialog>
   </div>
 </template>
 
 <script>
 import Slide from '../components/slide'
-import Dialog from '../components/dialog'
 export default {
   name: 'Vindex',
   components: {
-    Slide,
-    'v-dialog': Dialog
+    Slide
   },
   data () {
     return {
@@ -275,7 +272,7 @@ export default {
   },
   methods: {
     slideCallback (index) {
-      console.warn('这是第' + (index + 1) + '张slide')
+      // console.warn('这是第' + (index + 1) + '张slide')s
     }
   }
 }

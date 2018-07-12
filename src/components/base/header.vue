@@ -25,17 +25,28 @@
   <div class="header">
     <img src="../../assets/logo.png">
     <ul class="right">
-      <li>登录</li>
+      <li @click="logClick">登录</li>
       <li>|</li>
-      <li>注册</li>
+      <li @click="regClick">注册</li>
       <li>|</li>
-      <li>关于</li>
+      <li @click="aboutClick">关于</li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Vheader'
+  name: 'Vheader',
+  methods: {
+    logClick () {
+      this.$emit('login')
+    },
+    regClick () {
+      this.$emit('register')
+    },
+    aboutClick () {
+      this.$emit('about')
+    }
+  }
 }
 </script>
