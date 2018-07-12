@@ -127,7 +127,7 @@
       </div>
     </div>
     <div class="index-right">
-      <Slide :slideTime="slideTime" :slides="slides"></Slide>
+      <Slide :slideTime="slideTime" :slides="slides" @onchange="slideCallback"></Slide>
       <div class="index-board-list">
         <div v-for="(item, index) in boardList" class="board-item" :class="{'odd': index % 2 !==0}" :key="index">
           <div class="board-item-inner" :class="'board-item-'+item.id">
@@ -141,15 +141,18 @@
         </div>
       </div>
     </div>
+    <v-dialog></v-dialog>
   </div>
 </template>
 
 <script>
 import Slide from '../components/slide'
+import Dialog from '../components/dialog'
 export default {
   name: 'Vindex',
   components: {
-    Slide
+    Slide,
+    'v-dialog': Dialog
   },
   data () {
     return {
@@ -269,6 +272,11 @@ export default {
     }, (error) => {
       console.log(error, 44444444)
     })
+  },
+  methods: {
+    slideCallback (index) {
+      console.warn('这是第' + (index + 1) + '张slide')
+    }
   }
 }
 </script>

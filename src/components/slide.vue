@@ -138,7 +138,11 @@ export default {
       this.isShow = false
       setTimeout(() => {
         this.isShow = true
+        if (index === this.nowIndex) {
+          return
+        }
         this.nowIndex = index
+        this.$emit('onchange', index)
       }, 10)
     },
     setTimer () {
