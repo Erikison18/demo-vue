@@ -10,14 +10,13 @@
     background-color: rgba(0, 0, 0, 0.4);
   }
   .dialog-content{
-    width: 400px;
+    width: 50%;
     min-height: 100px;
     position: fixed;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    left: 25%;
+    top: 30%;
     background: #ffffff;
-    padding: 15px;
+    padding: 20px;
     border-radius: 5px;
     border: 1px solid #464068;
     box-shadow: 1px 1px 1px #999,
@@ -26,19 +25,33 @@
       position: absolute;
       top: 5px;
       right: 5px;
+      &:hover{
+      color: #4fc08d;
     }
+    }
+  }
+  .drop-enter-active,
+  .drop-leave-active{
+    transition: all 0.5s ease;
+  }
+  .drop-enter{
+    transform: translateY(-600px);
+  }
+  .drop-leave-to{
+    transform: translateY(-600px);
   }
 }
 </style>
 
 <template>
-  <div class="dialog-wrap" v-if="isShow">
-      <div class="dialog-cover" @click="onClose"></div>
-      <div class="dialog-content">
-        <a class="dialog-close" @click="onClose">X</a>
-        <p>555555</p>
-        <slot>empty!!!!!!!</slot>
-      </div>
+  <div class="dialog-wrap">
+      <div class="dialog-cover" v-if="isShow" @click="onClose"></div>
+      <transition name="drop">
+        <div class="dialog-content" v-if="isShow">
+          <a class="dialog-close" @click="onClose">X</a>
+          <slot>empty!!!!!!!</slot>
+        </div>
+      </transition>
   </div>
 </template>
 

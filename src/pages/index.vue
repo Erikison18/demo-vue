@@ -259,15 +259,10 @@ export default {
   },
   created: function () {
     this.$http.get('/api/newsList').then((res) => {
-      console.log(res.data, 11111111)
+      console.log(res.data, 'succuss newsList')
       this.NewsList = res.data.data
     }, (error) => {
-      console.log(error, 22222222)
-    })
-    this.$http.post('/api/login').then((res) => {
-      console.log(res.data, 3333333)
-    }, (error) => {
-      console.log(error, 44444444)
+      console.log(error, 'error newsList')
     })
   },
   methods: {
