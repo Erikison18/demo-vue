@@ -25,9 +25,11 @@
   <div class="header">
     <img src="../../assets/logo.png">
     <ul class="right">
-      <li @click="logClick">登录</li>
+      <li v-if="usename">{{ usename }}</li>
+      <li v-else @click="logClick">登录</li>
       <li>|</li>
-      <li @click="regClick">注册</li>
+      <li v-if="usename" @click="quitClick">退出</li>
+      <li v-if="!usename" @click="regClick">注册</li>
       <li>|</li>
       <li @click="aboutClick">关于</li>
     </ul>
@@ -37,6 +39,12 @@
 <script>
 export default {
   name: 'Vheader',
+  props: {
+    usename: {
+      type: String,
+      default: ''
+    }
+  },
   methods: {
     logClick () {
       this.$emit('login')
@@ -46,6 +54,9 @@ export default {
     },
     aboutClick () {
       this.$emit('about')
+    },
+    quitClick () {
+      this.$emit('quit')
     }
   }
 }

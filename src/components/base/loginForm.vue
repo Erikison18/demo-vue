@@ -1,38 +1,9 @@
 <style scoped lang="scss">
-.login-form{
-  .form-line{
-    padding: 15px 0;
-    .label{
-      width: 100px;
-      font-size: 16px;
-      display: inline-block;
-    }
-    input{
-      width: 200px;
-      border: 1px solid #ccc;
-      padding: 0 10px;
-      height: 30px;
-      line-height: 30px;
-    }
-    button{
-      padding: 10px 20px;
-      cursor: pointer;
-      background-color: #4fc08d;
-      color: #ffffff;
-      margin-left: 100px;
-    }
-    .form-line-error{
-      color: orange;
-    }
-  }
-  .form-error{
-    color: red;
-  }
-}
+
 </style>
 
 <template>
-  <div class="login-form">
+  <div class="ui-form login-form">
       <div class="form-line">
           <span for="name" class="label">用户名：</span>
           <input type="text" name="name" v-model="usenameModel" placeholder="请输入用户名">
@@ -78,7 +49,6 @@ export default {
       if (!this.loginFlag) {
         errorText = ''
         state = true
-        this.loginFlag = true
       }
       return {
         errorText: errorText,
@@ -100,13 +70,16 @@ export default {
       if (!this.passwordFlag) {
         errorText = ''
         state = true
-        this.passwordFlag = true
       }
       return {
         errorText: errorText,
         state: state
       }
     }
+  },
+  mounted () {
+    this.loginFlag = true
+    this.passwordFlag = true
   },
   methods: {
     onLogin () {
@@ -117,7 +90,7 @@ export default {
       this.formError = ''
       this.$http.post('/api/login').then((res) => {
         console.log(res.data, 'succuss login')
-        this.$emit('onLogin')
+        this.$emit('onLogin', res.data)
       }, (error) => {
         console.log(error, 'error login')
       })

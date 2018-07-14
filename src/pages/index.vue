@@ -134,7 +134,7 @@
             <h2>{{ item.title }}</h2>
             <p>{{ item.description }}</p>
             <div class="board-button">
-              <a href="" v-if="item.saleout" class="btn">立即购买</a>
+              <router-link v-if="item.saleout" tag="a" class="btn" :to="{ path: '/detail/' + item.toKey }">立即购买</router-link>
               <span v-else class="btn saleout">已售完</span>
             </div>
           </div>
@@ -182,14 +182,14 @@ export default {
           description: '开放产品是一款开放产品',
           id: 'car',
           toKey: 'analysis',
-          saleout: false
+          saleout: true
         },
         {
           title: '品牌营销',
           description: '品牌营销帮助你的产品更好地找到定位',
           id: 'earth',
           toKey: 'count',
-          saleout: false
+          saleout: true
         },
         {
           title: '使命必达',
@@ -203,7 +203,7 @@ export default {
           description: '帮你勇闯高峰，到达事业的顶峰',
           id: 'hill',
           toKey: 'publish',
-          saleout: false
+          saleout: true
         }
       ],
       NewsList: [],

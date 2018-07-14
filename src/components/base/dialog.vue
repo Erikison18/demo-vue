@@ -1,4 +1,4 @@
-<style scoped lang="scss">
+<style lang="scss">
 .dialog-wrap{
   position: fixed;
   .dialog-cover{
@@ -39,6 +39,36 @@
   }
   .drop-leave-to{
     transform: translateY(-600px);
+  }
+}
+.ui-form{
+  .form-line{
+    padding: 15px 0;
+    .label{
+      width: 100px;
+      font-size: 16px;
+      display: inline-block;
+    }
+    input{
+      width: 200px;
+      border: 1px solid #ccc;
+      padding: 0 10px;
+      height: 30px;
+      line-height: 30px;
+    }
+    button{
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #4fc08d;
+      color: #ffffff;
+      margin-left: 100px;
+    }
+    .form-line-error{
+      color: orange;
+    }
+  }
+  .form-error{
+    color: red;
   }
 }
 </style>
