@@ -5,6 +5,7 @@
   height: 50px;
   line-height: 50px;
   background-color: #e3e4e8;
+  margin-top: 30px;
   @include flex-center;
   p{
     color: #999;

@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'Vanalysis',
+  name: 'Vcount',
   data () {
     return {
     }
