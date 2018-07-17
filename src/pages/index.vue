@@ -85,16 +85,6 @@
           color: #000;
           margin-bottom: 15px;
         }
-        .btn{
-          display: inline-block;
-          color: #fff;
-          background-color: #4fc08d;
-          padding: 10px 20px;
-          margin-top: 20px;
-          &.saleout{
-             background-color: #999;
-          }
-        }
       }
     }
   }
@@ -135,7 +125,7 @@
             <p>{{ item.description }}</p>
             <div class="board-button">
               <router-link v-if="item.saleout" tag="a" class="btn" :to="{ path: '/detail/' + item.toKey }">立即购买</router-link>
-              <span v-else class="btn saleout">已售完</span>
+              <span v-else class="btn gray">已售完</span>
             </div>
           </div>
         </div>

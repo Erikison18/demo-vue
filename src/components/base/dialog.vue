@@ -100,8 +100,6 @@ export default {
     return {
     }
   },
-  computed: {
-  },
   methods: {
     onClose () {
       this.$emit('closeDialog')

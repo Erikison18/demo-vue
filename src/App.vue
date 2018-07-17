@@ -1,10 +1,21 @@
-<style>
+<style lang="scss">
 @import "./styles/reset.scss";
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-width: max-content;
+}
+.btn{
+  display: inline-block;
+  color: #fff;
+  background-color: #4fc08d;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  &.gray{
+      background-color: #999;
+  }
 }
 </style>
 

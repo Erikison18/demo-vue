@@ -24,5 +24,15 @@
   "login": {
     "username": "yudongdong",
     "userId": 123123
+  },
+  "getPrice": {
+    "amount": 888
+  },
+  "createOrder": {
+    "orderId": "6dj8888k979"
+  },
+  "checkOrder": {
+    "status": true,
+    "mes": "订单成功！！！"
   }
 }

@@ -37,7 +37,7 @@
   <div class="counter-component">
     <div class="counter-btn" @click="minus">-</div>
     <div class="counter-show">
-        <input type="text" v-model="number">
+        <input type="text" v-model="number" @keyup="fixNumber">
     </div>
     <div class="counter-btn" @click="add">+</div>
   </div>
@@ -46,19 +46,48 @@
 <script>
 export default {
   name: 'Vcounter',
+  props: {
+    max: {
+      type: Number,
+      default: 5
+    },
+    min: {
+      type: Number,
+      default: 1
+    }
+  },
   data: function () {
     return {
-      number: 1
+      number: this.min
+    }
+  },
+  watch: {
+    number () {
+      this.$emit('on-counter', this.number)
     }
   },
   methods: {
     add () {
-      this.number++
-      console.log(this.number)
+      if (this.number >= this.max) {
+        this.number = this.min
+      } else {
+        this.number++
+      }
     },
     minus () {
-      this.number--
-      console.log(this.number)
+      if (this.number <= this.min) {
+        this.number = this.max
+      } else {
+        this.number--
+      }
+    },
+    fixNumber () {
+      if (typeof this.number === 'string') {
+        this.number = Number(this.number.replace(/\D/g, ''))
+      }
+      if (this.number > this.max || this.number < this.min) {
+        this.number = this.min
+      }
     }
   }
 }

@@ -58,13 +58,6 @@
           }
           .sales-board-line-right{
             flex: 9;
-            .button{
-              background-color: #4fc08d;
-              color: #fff;
-              display: inline-block;
-              padding: 10px 20px;
-              cursor: pointer;
-            }
           }
         }
       }
