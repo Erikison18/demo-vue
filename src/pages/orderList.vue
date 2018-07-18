@@ -38,6 +38,10 @@
         color: #fff;
         border: 1px solid #4fc08d;
         cursor: pointer;
+        padding: 10px 0;
+        &.active{
+          background-color: #35495e;
+        }
       }
       td{
         text-align: center;
@@ -67,16 +71,16 @@
       </div>
       <div class="order-list-option">
         关键词：
-        <input type="text" class="keyWord">
+        <input type="text" class="keyWord" v-model.lazy="query">
       </div>
     </div>
     <div class="order-list-table">
       <table>
         <tr>
-          <th v-for="item in tableHeads" :key="item.label">{{ item.label }}</th>
+          <th v-for="(item, index) in tableHeads" :key="index" @click="changeOrderType(item)" :class="{active: item.active}">{{ item.label }}</th>
         </tr>
-        <tr>
-          <td v-for="item in tableHeads" :key="item.label">55555</td>
+        <tr v-for="(itemTr, index) in tableData" :key="index">
+          <td v-for="item in tableHeads" :key="item.label">{{ itemTr[item.key] }}</td>
         </tr>
       </table>
     </div>
@@ -97,6 +101,8 @@ export default {
     return {
       startTime: new Date(new Date() - 604800000),
       endTime: new Date(),
+      query: '',
+      productId: 0,
       products: [
         {
           label: '数据统计',
@@ -148,15 +154,41 @@ export default {
       tableData: []
     }
   },
-  computed: {
+  watch: {
+    query () {
+      this.getList()
+    }
   },
   methods: {
     onParamChange (attr, val) {
-      console.log(attr, val)
+      this.productId = val.value
+      this.getList()
     },
     dateChange () {
-      console.log(this.startTime)
-      console.log(this.endTime)
+      console.log('dateChange')
+      this.getList()
+    },
+    getList () {
+      let reqParams = {
+        startTime: this.startTime,
+        endTime: this.endTime,
+        query: this.query,
+        productId: this.productId
+      }
+      this.$http.post('/api/getOrderList', reqParams).then((req) => {
+        console.log(req.data.data.list, 'getOrderList success')
+        this.tableData = req.data.data.list
+      }, (error) => {
+        console.log(error, 'getOrderList error')
+      })
+    },
+    changeOrderType (headItem) {
+      this.tableHeads.map((item) => {
+        item.active = false
+        return item
+      })
+      headItem.active = true
+      console.log('changeOrderType11', headItem)
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -168,6 +200,9 @@ export default {
     $(document).scrollLeft(0)
     $(document).scrollTop(0)
     next()
+  },
+  mounted () {
+    this.getList()
   }
 }
 </script>

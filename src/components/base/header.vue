@@ -16,6 +16,7 @@
         float: left;
         color: #b2b2b2;
         padding: 0 5px;
+        cursor: pointer;
       }
     }
   }
