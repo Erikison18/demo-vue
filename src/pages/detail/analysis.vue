@@ -2,8 +2,6 @@
 .buy-dialog-table{
   width: 100%;
   margin-bottom: 20px;
-  border-collapse: collapse;
-  border-spacing: 0px;
   th{
     background-color: #4fc08d;
     color: #fff;
@@ -20,7 +18,6 @@
   font-size: 16px;
   font-weight: bold;
 }
-
 </style>
 
 <template>

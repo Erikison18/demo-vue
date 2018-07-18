@@ -135,6 +135,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import Slide from '../components/slide'
 export default {
   name: 'Vindex',
@@ -259,6 +260,16 @@ export default {
     slideCallback (index) {
       // console.warn('这是第' + (index + 1) + '张slide')s
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    $(document).scrollLeft(0)
+    $(document).scrollTop(0)
+    next()
+  },
+  beforeRouteUpdate (to, from, next) {
+    $(document).scrollLeft(0)
+    $(document).scrollTop(0)
+    next()
   }
 }
 </script>

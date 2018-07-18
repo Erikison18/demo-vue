@@ -23,7 +23,9 @@
 
 <template>
   <div class="header">
-    <img src="../../assets/logo.png">
+    <router-link tag="a" :to="{ path: '/'}">
+      <img src="../../assets/logo.png">
+    </router-link>
     <ul class="right">
       <li v-if="usename">{{ usename }}</li>
       <li v-else @click="logClick">登录</li>

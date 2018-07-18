@@ -80,6 +80,18 @@
         ul li{
           padding: 5px 0;
         }
+        .sales-board-table {
+          width: 100%;
+          margin-top: 20px;
+        }
+        .sales-board-table th {
+          background: #4fc08d;
+          color: #fff;
+        }
+        .sales-board-table td {
+          border: 1px solid #f0f2f5;
+          padding: 15px;
+        }
       }
     }
   }
@@ -106,6 +118,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   name: 'Vdetail',
   data () {
@@ -144,6 +157,16 @@ export default {
     imgPath () {
       return this.imgMap[this.$route.path]
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    $(document).scrollLeft(0)
+    $(document).scrollTop(0)
+    next()
+  },
+  beforeRouteUpdate (to, from, next) {
+    $(document).scrollLeft(0)
+    $(document).scrollTop(0)
+    next()
   }
 }
 </script>
