@@ -16,7 +16,9 @@
   "dependencies": {
     "json-server": "^0.14.0",
     "vue": "^2.5.2",
+    "vue-md-date-picker": "^1.0.16",
     "vue-router": "^3.0.1",
+    "vue2-datepicker": "^2.0.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

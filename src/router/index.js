@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/index'
+import OrderList from '@/pages/orderList'
 import Detail from '@/pages/detail'
 import Analysis from '@/pages/detail/analysis'
 import Count from '@/pages/detail/count'
@@ -38,6 +39,10 @@ export default new Router({
           component: Publish
         }
       ]
+    },
+    {
+      path: '/orderList',
+      component: OrderList
     }
   ]
 })
