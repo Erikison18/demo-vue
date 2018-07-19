@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    <v-dialog :isShow="isShowCheckDialog" @closeDialog="closeCheckDialog">
+    <v-dialog :isShow="isShowCheckDialog" @closeDialog="checkStatus">
       请检查你的支付状态！
       <div class="btn" @click="checkStatus">
         支付成功
@@ -52,10 +52,12 @@ export default {
         console.log(res.data, 'checkOrder succuss')
         this.isShowSuccessDialog = true
         this.$emit('on-closeCheckDialog')
+        this.$router.push({path: '/orderList'})
       }, (error) => {
         console.log(error, 'checkOrder error')
         this.isShowFailDialog = true
         this.$emit('on-closeCheckDialog')
+        this.$router.push({path: '/orderList'})
       })
     },
     closeCheckDialog () {

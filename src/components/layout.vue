@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="resetComponent">
     <v-header @login="openLogin" @register="openReg" @about="openAbout" @quit="quitLogin"
      :usename="usename"></v-header>
     <div class="content">
@@ -22,6 +22,7 @@ import Footer from './base/footer'
 import Dialog from './base/dialog'
 import Login from './base/loginForm'
 import Register from './base/regForm'
+import EventBus from '../eventBus.js'
 export default {
   name: 'layout',
   components: {
@@ -75,6 +76,9 @@ export default {
     },
     quitLogin () {
       this.usename = ''
+    },
+    resetComponent () {
+      EventBus.$emit('reset-component')
     }
   }
 }

@@ -2,7 +2,6 @@
 .order-wrap{
   width: 1200px;
   min-width: 800px;
-  min-height: 500px;
   margin: 20px auto;
   overflow: hidden;
   h3{
@@ -54,7 +53,7 @@
 </style>
 
 <template>
-  <div class="order-wrap">
+  <div class="order-wrap wrap">
     <h3>您的产品</h3>
     <div class="order-list-choose">
       <div class="order-list-option">
@@ -89,6 +88,7 @@
 
 <script>
 import $ from 'jquery'
+import _ from 'lodash'
 import Selection from '../components/base/select'
 import DatePicker from 'vue2-datepicker'
 export default {
@@ -124,50 +124,77 @@ export default {
       tableHeads: [
         {
           label: '订单号',
-          key: 'orderId'
+          key: 'orderId',
+          active: false
         },
         {
           label: '购买产品',
-          key: 'product'
+          key: 'product',
+          active: false
         },
         {
           label: '版本类型',
-          key: 'version'
+          key: 'version',
+          active: false
         },
         {
           label: '有效时间',
-          key: 'period'
+          key: 'period',
+          active: false
         },
         {
           label: '购买日期',
-          key: 'date'
+          key: 'date',
+          active: false
         },
         {
           label: '数量',
-          key: 'buyNum'
+          key: 'buyNum',
+          active: false
         },
         {
           label: '总价',
-          key: 'amount'
+          key: 'amount',
+          active: false
         }
       ],
-      tableData: []
+      // tableData: [],
+      currentOrder: 'desc'
+    }
+  },
+  computed: {
+    tableData: {
+      get: function () {
+        return this.$store.getters.getOrderList
+      },
+      set: function (newValue) {
+        this.$store.commit('updateOrderList', newValue)
+        console.log('computed set', newValue[0])
+      }
     }
   },
   watch: {
     query () {
-      this.getList()
+      this.setStoreParams()
+      this.$store.dispatch('fetchOrderList')
+      // this.getList()
     }
   },
   methods: {
     onParamChange (attr, val) {
       this.productId = val.value
-      this.getList()
+      this.setStoreParams()
+      this.$store.dispatch('fetchOrderList')
+      // this.getList()
     },
     dateChange () {
-      console.log('dateChange')
-      this.getList()
+      this.setStoreParams()
+      this.$store.dispatch('fetchOrderList')
+      // this.getList()
     },
+    /**
+     * 获取数据，已用store替换掉
+     */
     getList () {
       let reqParams = {
         startTime: this.startTime,
@@ -182,13 +209,27 @@ export default {
         console.log(error, 'getOrderList error')
       })
     },
+    setStoreParams () {
+      let reqParams = {
+        startTime: this.startTime,
+        endTime: this.endTime,
+        query: this.query,
+        productId: this.productId
+      }
+      this.$store.commit('updateParams', reqParams)
+    },
     changeOrderType (headItem) {
       this.tableHeads.map((item) => {
         item.active = false
         return item
       })
       headItem.active = true
-      console.log('changeOrderType11', headItem)
+      if (this.currentOrder === 'asc') {
+        this.currentOrder = 'desc'
+      } else {
+        this.currentOrder = 'asc'
+      }
+      this.tableData = _.orderBy(this.tableData, headItem.key, this.currentOrder)
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -202,7 +243,10 @@ export default {
     next()
   },
   mounted () {
-    this.getList()
+    // this.getList()
+    this.setStoreParams()
+    this.$store.dispatch('fetchOrderList')
+    console.log(this.$store, '$store.dispatch')
   }
 }
 </script>

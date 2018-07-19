@@ -41,6 +41,7 @@
           </div>
           <div class="sales-board-line-right">
               <v-selection :selectData="buyTypes" @on-select="onParamChange('buyType', $event)"></v-selection>
+              <v-selection :selectData="buyTypes" @on-select="onParamChange('buyType', $event)"></v-selection>
           </div>
       </div>
       <div class="sales-board-line">

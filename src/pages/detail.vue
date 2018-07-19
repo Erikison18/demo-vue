@@ -99,7 +99,7 @@
 </style>
 
 <template>
-  <div class="detail-wrap">
+  <div class="detail-wrap wrap">
     <div class="detail-left">
       <div class="product-board">
         <img :src="imgPath" alt="">

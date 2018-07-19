@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import EventBus from '../../eventBus.js'
 export default {
   name: 'Vselect',
   props: {
@@ -82,12 +83,18 @@ export default {
   methods: {
     chooseSelect (index) {
       this.nowIndex = index
-      this.isDrop = false
       this.$emit('on-select', this.selectData[this.nowIndex])
     },
-    toggleSelect () {
+    toggleSelect (event) {
+      event.stopPropagation()
+      EventBus.$emit('reset-component')
       this.isDrop = !this.isDrop
     }
+  },
+  mounted () {
+    EventBus.$on('reset-component', () => {
+      this.isDrop = false
+    })
   }
 }
 </script>

@@ -17,6 +17,9 @@
       background-color: #999;
   }
 }
+.wrap{
+  min-height: 85vh;
+}
 </style>
 
 <template>
